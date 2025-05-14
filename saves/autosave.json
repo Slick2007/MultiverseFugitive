@@ -1,0 +1,19 @@
+{
+  "timestamp": 1747227322.8580182,
+  "datetime": "2025-05-14 12:55:22",
+  "player_state": {
+    "morality": 50,
+    "memory_sync": 0,
+    "fracture_key_charges": 5,
+    "key_fragments": [],
+    "reputation": {
+      "mcu": 0
+    },
+    "inventory": [
+      "S.H.I.E.L.D. Communicator"
+    ],
+    "visited_universes": [
+      "mcu"
+    ]
+  }
+}
