@@ -1,0 +1,93 @@
+Project Title: Multiverse Fugitive – A Fully Choice-Based Terminal Game
+
+Summary:
+Build a text-based, terminal adventure game where the player explores different fictional universes (Peaky Blinders, MCU, GTA, Monsterverse, Spy X Family, etc.). Each universe is a standalone, modular story driven entirely by player choices. The game must allow future universes to be added easily without modifying core logic.
+
+Core Features:
+1. **Player State System**
+   - `morality`: Tracks good vs. evil alignment
+   - `memory_sync`: Measures how much the player remembers of their true self
+   - `fracture_key_charges`: Limits the number of universes the player can visit
+   - `reputation`: Dictionary of player’s reputation per universe
+   - `inventory`: Items collected across universes
+
+2. **Modular Universe Engine**
+   - Each universe is a self-contained Python module placed in a `/universes` folder
+   - Every universe module must define:
+     - `on_entry(state)`: Introduction and universe-specific events
+     - `get_choices(state)`: Returns a list of available `Choice` options
+     - `handle_choice(choice_id, state)`: Applies choice effects and returns next scene
+     - `on_exit(state)`: Cleanup, grants key fragment, and exits universe
+
+3. **Choice System**
+   - Choices are objects with:
+     - `id`: Integer identifier
+     - `prompt`: What the player sees
+     - `consequence`: Text or function defining what happens
+   - Engine shows choices, accepts input, calls the appropriate consequence
+
+4. **Multiverse Hub**
+   - After completing a universe, player returns to a hub (void) where they can:
+     - See stats (morality, memory sync, charges, inventory)
+     - Select a new universe to enter
+     - Save or quit
+   - Game ends when:
+     - All fracture key fragments are collected (one per universe)
+     - Charges run out (bad ending)
+     - Memory sync reaches 100% (true self ending)
+
+5. **Starter Universe: Peaky Blinders (sample module)**
+   - On entry: Player wakes up in 1920s Birmingham
+   - Choices:
+     1. Visit Garrison Pub (gain rep with Tommy)
+     2. Help local kid (gain morality)
+     3. Hide in alley (gain memory sync)
+   - On exit: Player receives 1 key fragment, charges -1
+
+6. **Adding More Universes**
+   - To add a universe:
+     - Create `/universes/<name>.py`
+     - Define a class `<Name>Universe(Universe)` that implements all 4 hooks
+     - Register it with UniverseManager
+     - No need to change any other part of the game
+
+7. **Example Universes To Implement (25 total)**
+   - Peaky Blinders
+   - MCU
+   - GTA V
+   - Cyberpunk 2077
+   - Stranger Things
+   - The Matrix
+   - The Witcher
+   - Attack on Titan
+   - Red Dead Redemption
+   - Harry Potter
+   - Dark (Netflix)
+   - Breaking Bad
+   - Star Wars
+   - Naruto
+   - Blade Runner 2049
+   - Elden Ring
+   - The Boys
+   - The Last of Us
+   - Gotham
+   - Hunger Games
+   - Monsterverse (Godzilla/Kong)
+   - Spy X Family
+   - WickVerse (John Wick)
+   - Doctor Who
+   - Ready Player One
+
+8. **Future Proofing**
+   - Add mini-game hooks later per universe
+   - Store scenes in JSON for non-coders to expand
+   - Add a front-end later (Flask, Twine, or React) using the same backend
+
+Start by building:
+- `core.py`: with `PlayerState`, `Choice`, `Universe`, and `UniverseManager`
+- `main.py`: Loads the hub and loops through universes
+- `/universes/peaky_blinders.py`: Implements first playable world
+
+Goal:
+Create a powerful, expandable engine where you can plug in any universe-driven narrative and build a growing multiverse of choice-based stories.
+
